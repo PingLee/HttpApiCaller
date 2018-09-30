@@ -1,0 +1,113 @@
+<html>
+<head>
+<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $("#b01").click(function(){
+    htmlobj=$.ajax(
+	  {
+	     url: $('#api_url').val(),
+		 contentType: $('#content_type').val(),
+		 type: $('#http_verb').val(),
+		 data: $('#request_body').val(),
+		 dataType: $('#rtn_data_type').val(),
+         success: function(data){
+            //alert("成功获取");             
+         },
+		 async:false
+	  }
+	  
+	);
+	
+    $("#myDiv").html(htmlobj.responseText);
+  });
+});
+</script>
+<style type="text/css">
+#input_box{
+  margin-top:20px;
+  margin-left:20px
+}
+
+#api_url{
+  width:600px;
+}
+
+textarea {
+  width:480px;
+  height:200px;
+}
+
+#rbody {
+  width: 718px;
+  height:202px;
+}
+
+.rbody_flyToTop {
+  float: left;
+  width:230px;
+  height:200px;
+  position: relative;
+  top: 1%;
+}
+
+.rbody_flyToright {
+  float: right;
+  width:480px;
+  height:200px;
+}
+
+#myDiv{
+  width:800px;
+}
+
+</style>
+</head>
+<body>
+<div id="input_box">
+	<div>
+	    <b>动词：</b>
+		<select id="http_verb">
+			<option value="POST">POST</option>
+			<option value="GET">GET</option>
+			<option value="PUT">PUT</option>
+			<option value="DELETE">DELETE</option>
+		</select>
+		<input id="api_url" name="api_url"  placeholder="填写需要调用的接口地址" with=600/>
+		<button id="b01" type="button">发起请求</button>
+	</div>
+	<br/>
+	<div>
+		<b>请求格式：</b>[Content-Type]
+		<select id="content_type" name="content_type">
+			<option value="application/json;charset=utf-8"/>Json格式（application/json;charset=utf-8）
+			<option value="application/x-www-form-urlencoded"/>表单值格式（application/x-www-form-urlencoded）
+		</select>
+	</div>
+	<br/>
+	<div id="rbody">
+		<div class="rbody_flyToTop"><b>请求体（Body）[即请求参数]：</b></div>
+		<div  class="rbody_flyToright">
+			<textarea id="request_body"></textarea>
+		</div>
+	</div>
+	<br/>
+	<h1>----------------</h1>
+	<div>
+		<b>Response[返回区]</b>
+		数据返回类型：
+		<select id="rtn_data_type" name="rtn_data_type">
+			<option value="JSON"/>JSON
+			<option value="JSONP"/>JSONP
+			<option value="HTML"/>HTML
+			<option value="XML"/>XML
+			<option value="SCRIPT"/>SCRIPT
+			<option value="TEXT"/>TEXT
+		</select>
+	</div>
+	<br/>
+	<div id="myDiv"><h2>--</h2></div>
+	
+</div>
+</body>
+</html>
